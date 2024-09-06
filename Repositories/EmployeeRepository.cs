@@ -11,9 +11,22 @@ namespace EmployeeCrudAPI.Repositories
     {
         private readonly AppDbContext _appDbContext;
 
+        private static int _currentId = 1000;
+
         public EmployeeRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+        }
+
+        public async Task AddAsync(Employee employee)
+        {
+            _currentId++;
+            employee.EmployeeId = _currentId;
+
+            Console.WriteLine($"Generated EmployeeId: {employee.EmployeeId}");  // Tambahkan ini untuk memeriksa nilai ID
+
+            _appDbContext.Employees.Add(employee);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task<Employee> GetByIdAsync(int employeeId)
@@ -26,11 +39,11 @@ namespace EmployeeCrudAPI.Repositories
             return await _appDbContext.Employees.ToListAsync();
         }
 
-        public async Task AddAsync(Employee employee)
+        /*public async Task AddAsync(Employee employee)
         {
             _appDbContext.Employees.Add(employee);
             await _appDbContext.SaveChangesAsync();
-        }
+        }*/
 
         public async Task UpdateAsync(Employee employee)
         {

@@ -28,7 +28,7 @@ namespace EmployeeCrudAPI.Services
 
                 return new EmployeeResponseDto
                 {
-                    //EmployeeId = employee.EmployeeId,
+                    EmployeeId = employee.EmployeeId,
                     FullName = employee.FullName,
                     BirthDate = employee.BirthDate,
                 };
@@ -46,7 +46,7 @@ namespace EmployeeCrudAPI.Services
                 var employees = await _employeeRepository.GetAllAsync(); ;
                 return employees.Select(e => new EmployeeResponseDto
                 {
-                    //EmployeeId = e.EmployeeId,
+                    EmployeeId = e.EmployeeId,
                     FullName = e.FullName,
                     BirthDate = e.BirthDate,
                 });
